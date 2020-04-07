@@ -9,11 +9,13 @@ import thunk from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import loginReducer from './store/reducers/loginReducer';
 import signupReducer from './store/reducers/signupReducer';
+import signoutReducer from './store/reducers/signoutReducer';
 import firebase from 'firebase';
 
 const rootReducer = combineReducers({
   loginReducer: loginReducer,
   signupReducer: signupReducer,
+  signoutReducer: signoutReducer,
   form: formReducer
 })
 const store = createStore(rootReducer, applyMiddleware(thunk));

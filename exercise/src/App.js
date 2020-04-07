@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SignUpPage from './SignUpPage';
 import LoginPage from './LoginPage';
@@ -10,24 +9,16 @@ import {
   Route,
   Link,
   Redirect,
-  useHistory,
-  useLocation
 } from "react-router-dom";
-
-import { connect } from 'react-redux';
-
-const mapStateToProps = state => {
-    return {
-      login: state.loginReducer,
-    };
-  };
+import firebase from 'firebase';
 
 function PrivateRoute({ children, ...rest }) {
+  const curr = firebase.auth().currentUser;
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        rest.idToken ? (
+      curr !== null && curr.emailVerified ? (
           children
         ) : (
           <Redirect
@@ -43,6 +34,7 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 function App(props) {
+  console.log(firebase.auth().currentUser)
   return (
     <Router>
       <div>
@@ -62,7 +54,7 @@ function App(props) {
           <Route path="/signup">
             <SignUpPage />
           </Route>
-          <PrivateRoute path="/protected" idToken={props.login.idToken}>
+          <PrivateRoute path="/protected" >
             <ProtectedPage />
           </PrivateRoute>
         </Switch>
@@ -71,4 +63,4 @@ function App(props) {
   );
 }
 
-export default connect(mapStateToProps, null)(App);
+export default App;

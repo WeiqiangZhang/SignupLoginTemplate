@@ -7,7 +7,7 @@ export const login = (email, password) => {
     return (dispatch) => {
         dispatch({type: actionTypes.LOG_IN_LOADING,});
         auth.signInWithEmailAndPassword(email, password)
-        .then(res => {dispatch({type: actionTypes.LOG_IN_SUCCESS, idToken: res.user.xa})})
+        .then(res => {dispatch({type: actionTypes.LOG_IN_SUCCESS})})
         .catch(e => 
           {dispatch({type: actionTypes.LOG_IN_FAILED, errorMessage: e.message})}
         );
